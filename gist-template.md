@@ -1,6 +1,8 @@
 Title (replace with your title)
 
-Introductory paragraph (replace this with your text)
+Introductory paragraph 
+what is REGEX? 
+Regular expressions (regex) are powerful tools used in programming for pattern matching within strings. This tutorial will break down a specific regex used to match email addresses and explain each component in detail.
 
 Summary
 
@@ -22,8 +24,10 @@ Look-ahead and Look-behind
 Regex Components
 
 Anchors
+The $ anchor signifies a string that ends with the characters that precede it. Just as with the ^ character, it can be preceded by an exact string or a range of possible matches.
 
 Quantifiers
+Quantifiers set the limits of the string that your regex matches (or an individual section of the string). They frequently include the minimum and maximum number of characters that your regex is looking for.
 
 OR Operator
 

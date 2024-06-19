@@ -1,72 +1,63 @@
-Regex Tutorial
+Regex Tutorial to match an email
 
-Introductory paragraph 
+Introductory paragraph
 
-what is REGEX? 
-A regular expression "Regex" is a sequence of characters that specifies a match pattern in text. Usually such patterns are used by string-searching algorithms for "find" or "find and replace" operations on strings, or for input validation.
+This tutorial is going to explain the use of regex to match emails using the expression /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/. This can be useful when validating emails using applications/technologies such as Node (Inqurier) or MongoDB.
 
-
-Summary
-
-Regular expressions (regex) are powerful tools used in programming for pattern matching within strings. This tutorial will break down a specific regex used to match email addresses and explain each component in detail.
-In this tutorial, we will explain the regex pattern used to validate email addresses - /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.
+A regular expression is a sequence of characters that defines a search pattern. This is commonly used to find patterns within a string, find/replace characters within a string or validate input. This tutortial will go walk through the components of a regex and how it applies to matching an email.
 
 Table of Contents
 
-Anchors
-Quantifiers
-OR Operator
-Character Classes
-Flags
-Grouping and Capturing
-Bracket Expressions
-Greedy and Lazy Match
-Boundaries
-Back-references
-Look-ahead and Look-behind
-Regex Components
+Anchors Quantifiers OR Operator Character Classes Flags Grouping and Capturing Bracket Expressions Greedy and Lazy Match Boundaries Look-ahead and Look-behind Regex Components
 
-Anchors
-The $ anchor signifies a string that ends with the characters that precede it. Just as with the ^ character, it can be preceded by an exact string or a range of possible matches.
+Anchors The $ anchor signifies a string that ends with the characters that precede it. Just as with the ^ character, it can be preceded by an exact string or a range of possible matches.
 
-Quantifiers
-Quantifiers set the limits of the string that your regex matches (or an individual section of the string). They match as many occurrences of particular patterns as possible. They include the following:
+Quantifiers Quantifiers in this regex includes the + operator, which will connect the users email name + email service + .com. Another quantifier for this regex includes {2,6}, which will allow a match range of 2-6 characters for the character set of [a-z.].
 
+OR Operator The OR operator (|) is used to match one pattern or another. Example: cat|dog matches either cat or dog. In other contexts, the OR operator can be used to specify alternate acceptable patterns.
 
-1. *—Matches the pattern zero or more times
+Character Classes The character class in this expression is \d, which matches a single characters that is a digit from 0-9. It will only match a single digit such as "4", but not "44".
 
-2. +—Matches the pattern one or more times
+Flags Flags modify the behavior of the regex.
 
-3. ?—Matches the pattern zero or one time
+i makes the regex case-insensitive.
+g makes the regex global, meaning it will find all matches rather than stopping after the first match.
+m makes the regex multiline, allowing ^ and $ to match the start and end of each line. Although flags are not used in our specific email regex, they can be very useful for other regex patterns.
+Grouping and Capturing Capturing group #1 in this expression is ([a-z0-9_.-]+) that matches the user email name. The second capturing group is ([\da-z.-]+) which will match the email service. Then lastly, capture group #3 is ([a-z.]{2,6}) to capture the .com.
 
-4. {}—Curly brackets can provide three different ways to set limits for a match:
+Bracket Expressions Bracked expressios for email validation includes the character sets of [a-z0-9_.-], which is matching any letter a-z and is case senstive. It also matches a character 0-9 and matches the characters "_" , "-" , and "."; [\da-z.-], which is matching a single digit from 0-9, any character a-z (case senstive), and the characters "." and "-".; [a-z.] matches any character a-z(case senstive) and the character ".".
 
-5. { n }—Matches the pattern exactly n number of times
+Greedy and Lazy Match This regrex includes greedy matches. Since it includes the + Quantifier, it will match as many times as possible giving back as needed. Another greedy Quantifier used in this regex is {} when matching `{2,6} for the last capture group.
 
-6. { n, }—Matches the pattern at least n number of times
+Boundaries Boundaries assert positions in the string.
 
-7. { n, x }—Matches the pattern from a minimum of n number of times to a maximum of x number of times
+\b matches a word boundary.
+\B matches a position that is not a word boundary. In our email regex, boundaries are not explicitly used, but they can be essential in other contexts to ensure matches occur at specific word boundaries.
+Look-ahead and Look-behind A regular expression generally matches from left to right. This is why lookahead and lookbehind assertions are called as such — lookahead asserts what's on the right, and lookbehind asserts what's on the left.
 
-In our email regex, + is used to ensure that there is at least one character in the username and domain name parts.
+Summary Let's break down the regular expression /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/ used for email validation step by step:
 
-OR Operator
+'^': Asserts the position at the start of a line. This ensures that the entire string will be matched from the beginning.
 
-Character Classes
+'([a-z0-9_.-]+)':
+'(' and ')' create a capturing group for the local part of the email (before the @).
+'[a-z0-9_.-]' is a character class that matches any lowercase letter (a-z), digit (0-9), underscore (_), dot (.), or hyphen (-).
+'+' means one or more of the preceding character class. This ensures that the local part has at least one character.
+'@': Matches the @ symbol literally.
 
-Flags
+'([\da-z.-]+)':
+'(' and ')' create another capturing group for the domain part of the email (between the @ and the final dot).
+'[\da-z.-]' is a character class that matches any digit (\d), lowercase letter (a-z), dot (.), or hyphen (-).
+'+' means one or more of the preceding character class. This ensures that the domain part has at least one character.
+'.': Matches the dot . symbol literally. It needs to be escaped with a backslash because a dot in regex means "any character".
 
-Grouping and Capturing
+'([a-z.]{2,6})':
+'(' and ')' create another capturing group for the top-level domain (TLD) part of the email (after the final dot).
+'[a-z.]' is a character class that matches any lowercase letter (a-z) or dot (.).
+'{2,6}' specifies that the preceding character class should be matched at least 2 times and at most 6 times. This ensures that the TLD has between 2 and 6 characters.
 
-Bracket Expressions
+'$': Asserts the position at the end of a line. This ensures that the entire string will be matched up to the end.
 
-Greedy and Lazy Match
+Putting it all together, this regular expression will match a string that starts with one or more lowercase letters, digits, underscores, dots, or hyphens, followed by an @ symbol, followed by one or more digits, lowercase letters, dots, or hyphens, followed by a dot, and ends with a TLD that is between 2 and 6 characters long, consisting of lowercase letters or dots.
 
-Boundaries
-
-Back-references
-
-Look-ahead and Look-behind
-
-Author
-
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+Author This tutorial was created by Saba Pervez a Full stack developer bootcamp student. To view my projects please visit: https://github.com/saba0705
